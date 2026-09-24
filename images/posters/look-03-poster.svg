@@ -1,0 +1,15 @@
+<svg viewBox="0 0 900 1600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="video placeholder background">
+<defs>
+<linearGradient id="bg" x1="0.1" y1="0" x2="0.9" y2="1">
+<stop offset="0" stop-color="#0E0B0D"/>
+<stop offset="1" stop-color="#3D0F21"/>
+</linearGradient>
+<pattern id="wing" width="72" height="72" patternUnits="userSpaceOnUse">
+<path d="M8 20 Q16 25 24 19" fill="none" stroke="#FBF6F3" stroke-width="1.1" stroke-linecap="round" opacity="0.45"/>
+<circle cx="46" cy="50" r="1.6" fill="#FBF6F3" opacity="0.35"/>
+</pattern>
+</defs>
+<rect width="900" height="1600" fill="url(#bg)"/>
+<rect width="900" height="1600" fill="url(#wing)" opacity="0.08"/>
+<text x="872" y="1574" text-anchor="end" font-family="Arial, sans-serif" font-size="18" letter-spacing="2" fill="#FBF6F3" opacity="0.32">REPLACE — VIDEOS/LOOK-03.MP4</text>
+</svg>
