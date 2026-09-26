@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
       video.style.backgroundSize = "cover";
       video.style.backgroundPosition = "center";
       if (cfg.title) video.setAttribute("aria-label", cfg.title);
+      // Reduced motion: no autoplay, but let visitors opt in to playback.
+      if (reducedMotion && !video.hasAttribute("aria-hidden")) video.controls = true;
 
       var source = document.createElement("source");
       source.src = cfg.src;

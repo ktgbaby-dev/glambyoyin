@@ -172,7 +172,11 @@ p { text-wrap: pretty; }
   color: var(--glam-pink);
 }
 
-.section-onyx .italic-accent { color: var(--blush); }
+/* Brand board: Glam Pink italic on light grounds, Blush italic on dark */
+.section-onyx .italic-accent,
+.hero .italic-accent,
+.final-moment .italic-accent,
+.video-landscape-caption .italic-accent { color: var(--blush); }
 
 .container {
   width: 100%;
@@ -646,6 +650,8 @@ p { text-wrap: pretty; }
   text-align: center;
 }
 
+.video-landscape-caption p { font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem); }
+
 /* ---------- Split feature (Makeup / Lashes) ---------- */
 
 .split-feature {
@@ -695,6 +701,8 @@ p { text-wrap: pretty; }
   margin: 0 auto;
 }
 .quote-section .quote-mark { width: 34px; height: 34px; margin: 0 auto 30px; opacity: 0.8; }
+/* Beats the generic petal-section paragraph colour so the statement stays Onyx */
+.section-petal.quote-section blockquote p { color: var(--onyx); }
 
 /* ---------- Final portfolio moment ---------- */
 
@@ -770,6 +778,7 @@ p { text-wrap: pretty; }
 .site-footer {
   background-color: var(--onyx);
   color: var(--porcelain);
+  border-top: 1px solid var(--line-on-dark);
   padding: 64px 0 calc(30px + env(safe-area-inset-bottom));
 }
 
@@ -827,10 +836,10 @@ p { text-wrap: pretty; }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 980px) {
-  .split-feature, .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .split-feature, .about-grid { grid-template-columns: 1fr; gap: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
   .split-feature.reverse .split-media, .split-feature.reverse .split-copy { order: initial; }
   .split-copy p, .about-copy p { max-width: none; }
-  .about-portrait { max-width: 320px; margin: 0 auto; }
+  .about-portrait { max-width: none; }
   .experience-row { grid-template-columns: 1fr; gap: 16px; text-align: left; }
   .experience-row:nth-child(even) .word-col,
   .experience-row:nth-child(even) .copy-col { order: initial; text-align: left; margin-left: 0; }
@@ -864,6 +873,14 @@ p { text-wrap: pretty; }
   }
 
   .nav-cta { text-align: center; margin-top: 10px; }
+
+  .footer-links a,
+  .footer-contact a,
+  .contact-line a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
 
   .hero { padding: 110px 0 70px; }
   .hero-monogram { width: 52px; height: 52px; }
