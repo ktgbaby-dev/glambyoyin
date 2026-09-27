@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initRevealAndVideoVisibility();
   initParallax();
   initFooterYear();
+  initCopyButtons();
 
   // ---------- Mobile nav ----------
   function initNav() {
@@ -176,5 +177,55 @@ document.addEventListener("DOMContentLoaded", function () {
   function initFooterYear() {
     var year = document.getElementById("year");
     if (year) year.textContent = new Date().getFullYear();
+  }
+
+  // ---------- Copy-to-clipboard (account number) ----------
+  function initCopyButtons() {
+    document.querySelectorAll(".copy-btn[data-copy]").forEach(function (btn) {
+      var defaultText = btn.textContent;
+      var resetTimer = null;
+
+      function showCopied() {
+        window.clearTimeout(resetTimer);
+        btn.textContent = "Copied";
+        btn.classList.add("copied");
+        resetTimer = window.setTimeout(function () {
+          btn.textContent = defaultText;
+          btn.classList.remove("copied");
+        }, 1600);
+      }
+
+      function fallbackCopy(value) {
+        var input = document.createElement("textarea");
+        input.value = value;
+        input.setAttribute("readonly", "");
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+        document.body.appendChild(input);
+        input.select();
+        try {
+          document.execCommand("copy");
+        } catch (e) {
+          /* nothing more we can do without clipboard access */
+        }
+        document.body.removeChild(input);
+      }
+
+      btn.addEventListener("click", function () {
+        var value = btn.dataset.copy;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(value)
+            .then(showCopied)
+            .catch(function () {
+              fallbackCopy(value);
+              showCopied();
+            });
+        } else {
+          fallbackCopy(value);
+          showCopied();
+        }
+      });
+    });
   }
 });

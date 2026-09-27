@@ -773,6 +773,78 @@ p { text-wrap: pretty; }
 }
 .contact-line a:hover { border-color: var(--glam-pink); color: var(--blush); }
 
+.account-details {
+  max-width: 480px;
+  margin: 44px auto 0;
+  padding: 32px 36px;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 2px;
+  text-align: center;
+}
+
+.account-details .label { margin-bottom: 10px; }
+
+.account-note { font-size: 0.92rem; margin-bottom: 24px; }
+
+.account-grid { display: flex; flex-direction: column; gap: 16px; }
+
+.account-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-on-dark);
+  text-align: left;
+}
+
+.account-field:first-child { border-top: none; padding-top: 0; }
+
+.account-field-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  color: var(--blush);
+  flex-shrink: 0;
+}
+
+.account-field-value {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--porcelain);
+  text-align: right;
+}
+
+.account-number { display: inline-flex; align-items: center; gap: 12px; }
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  background-color: transparent;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 2px;
+  color: var(--blush);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.copy-btn:hover, .copy-btn:focus-visible {
+  border-color: var(--glam-pink);
+  color: var(--porcelain);
+  background-color: rgba(224, 20, 124, 0.14);
+}
+
+.copy-btn.copied { border-color: var(--blush); color: var(--porcelain); }
+
 /* ---------- Footer ---------- */
 
 .site-footer {
@@ -906,6 +978,10 @@ p { text-wrap: pretty; }
   .video-landscape-frame { height: 58vh; }
   .final-moment { min-height: 78vh; }
   .footer-links { flex-wrap: wrap; row-gap: 10px; }
+
+  .account-details { padding: 26px 22px; }
+  .account-field { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .account-field-value { text-align: left; }
 }
 
 @media (hover: none) {
