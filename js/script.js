@@ -2,11 +2,14 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Visitors who asked to save data or reduce motion get posters plus native
+  // controls instead of autoplaying films.
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var noAutoplay = reducedMotion || saveData;
+  var smallScreen = window.matchMedia("(max-width: 720px)");
 
   initNav();
-  initVideoSources();
-  initRevealAndVideoVisibility();
-  initParallax();
+  initScrollEffects();
   initFooterYear();
   initCopyButtons();
 
@@ -35,48 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ---------- Video placeholders: wire config (see js/videos.js) to markup ----------
-  function initVideoSources() {
-    var videoEls = document.querySelectorAll(".js-video[data-video]");
-    if (!videoEls.length || typeof GLAMBYOYIN_VIDEOS === "undefined") return;
-
-    videoEls.forEach(function (video) {
-      var cfg = GLAMBYOYIN_VIDEOS[video.dataset.video];
-      if (!cfg) return;
-
-      video.poster = cfg.poster;
-      // Belt-and-suspenders: paint the poster as a CSS background too, so the
-      // frame never looks empty even if a browser handles `poster` oddly.
-      video.style.backgroundImage = "url('" + cfg.poster + "')";
-      video.style.backgroundSize = "cover";
-      video.style.backgroundPosition = "center";
-      if (cfg.title) video.setAttribute("aria-label", cfg.title);
-      // Reduced motion: no autoplay, but let visitors opt in to playback.
-      if (reducedMotion && !video.hasAttribute("aria-hidden")) video.controls = true;
-
-      var source = document.createElement("source");
-      source.src = cfg.src;
-      source.type = "video/mp4";
-      video.appendChild(source);
-      // A missing placeholder file (expected until real footage is added)
-      // just leaves the poster/background showing — nothing to handle.
-    });
-  }
-
-  // ---------- Scroll reveal + video play/pause ----------
-  // Deliberately rect-based rather than IntersectionObserver: several
-  // reveal/video elements sit inside .reveal-mask frames that animate via
-  // clip-path, and a target clipped to zero area can make an
-  // IntersectionObserver report a false "not intersecting" — a simple
-  // getBoundingClientRect() check against the viewport has no such edge case.
-  function initRevealAndVideoVisibility() {
+  // ---------- Scroll reveal + films ----------
+  // Rect-based rather than IntersectionObserver: the .reveal-mask frames
+  // animate their media via clip-path, and a target clipped to zero area can
+  // make an IntersectionObserver report a false "not intersecting".
+  function initScrollEffects() {
     var revealSelector = ".reveal, .reveal-scale, .reveal-mask, .reveal-left, .reveal-right";
 
-    // Stagger direct children inside known groups so grids/rows cascade in.
-    [".portfolio-grid", ".experience-rows"].forEach(function (groupSelector) {
+    // Stagger direct children inside known groups so rows and pairs cascade in.
+    [".experience-rows", ".collection-supporting"].forEach(function (groupSelector) {
       document.querySelectorAll(groupSelector).forEach(function (group) {
         Array.prototype.forEach.call(group.children, function (child, i) {
-          var delay = Math.min(i * 80, 400) + "ms";
+          var delay = Math.min(i * 90, 400) + "ms";
           if (child.matches(revealSelector)) child.style.transitionDelay = delay;
           child.querySelectorAll(revealSelector).forEach(function (nested) {
             nested.style.transitionDelay = delay;
@@ -86,23 +59,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     var revealEls = Array.prototype.slice.call(document.querySelectorAll(revealSelector));
-
     if (reducedMotion) {
       revealEls.forEach(function (el) { el.classList.add("is-visible"); });
       revealEls = [];
     }
 
-    var videoEls = Array.prototype.slice.call(document.querySelectorAll(".js-video[data-video]"));
-
-    function inViewport(rect, leadIn) {
-      return rect.bottom > 0 && rect.top < window.innerHeight - (leadIn || 0);
-    }
+    var films = collectFilms();
 
     function checkReveal() {
       if (!revealEls.length) return;
+      var vh = window.innerHeight;
       revealEls = revealEls.filter(function (el) {
         var rect = el.getBoundingClientRect();
-        if (inViewport(rect, window.innerHeight * 0.08)) {
+        if (rect.bottom > 0 && rect.top < vh * 0.92) {
           el.classList.add("is-visible");
           return false;
         }
@@ -110,67 +79,97 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    function checkVideos() {
-      if (reducedMotion || !videoEls.length) return;
-      videoEls.forEach(function (video) {
-        var wrapper = video.closest(".media-frame, .hero-media, .video-landscape-frame, .final-moment") || video;
-        if (inViewport(wrapper.getBoundingClientRect())) {
-          if (video.paused) video.play().catch(function () {});
-        } else if (!video.paused) {
-          video.pause();
-        }
+    function checkFilms() {
+      if (!films.length) return;
+      var vh = window.innerHeight;
+      var onScreen = [];
+
+      films.forEach(function (film) {
+        var rect = film.frame.getBoundingClientRect();
+        // Attach poster + source only once the film is within reach, so nothing
+        // below the fold costs a byte on first load.
+        if (!film.ready && rect.top < vh * 2.5 && rect.bottom > -vh) loadFilm(film);
+        if (!film.ready || noAutoplay) return;
+
+        var ratio = visibleRatio(rect, vh);
+        if (ratio >= 0.35) onScreen.push({ film: film, ratio: ratio });
+        else pause(film.video);
+      });
+
+      if (noAutoplay) return;
+      // Play only the most visible films; phones decode at most two at once.
+      var cap = smallScreen.matches ? 2 : 3;
+      onScreen.sort(function (a, b) { return b.ratio - a.ratio; });
+      onScreen.forEach(function (entry, i) {
+        if (i < cap) play(entry.film.video);
+        else pause(entry.film.video);
       });
     }
 
     var ticking = false;
-    function onScrollOrResize() {
+    function update() {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(function () {
         checkReveal();
-        checkVideos();
+        checkFilms();
         ticking = false;
       });
     }
 
     checkReveal();
-    checkVideos();
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize);
+    checkFilms();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) films.forEach(function (film) { pause(film.video); });
+      else update();
+    });
   }
 
-  // ---------- Subtle parallax (desktop only, motion-safe) ----------
-  function initParallax() {
-    if (reducedMotion) return;
-    var targets = document.querySelectorAll("[data-parallax]");
-    if (!targets.length || !window.matchMedia("(min-width: 720px)").matches) return;
+  function collectFilms() {
+    if (typeof GLAMBYOYIN_VIDEOS === "undefined") return [];
+    var films = [];
+    document.querySelectorAll(".js-video[data-video]").forEach(function (video) {
+      var cfg = GLAMBYOYIN_VIDEOS[video.dataset.video];
+      if (!cfg) return;
+      if (cfg.title) video.setAttribute("aria-label", cfg.title);
+      films.push({ video: video, cfg: cfg, frame: video.closest(".media-frame") || video, ready: false });
+    });
+    return films;
+  }
 
-    var ticking = false;
+  function loadFilm(film) {
+    var video = film.video;
+    video.poster = film.cfg.poster;
+    // The poster doubles as a CSS background so the frame is never blank
+    // between the poster being dropped and the first decoded frame painting.
+    video.style.backgroundImage = "url('" + film.cfg.poster + "')";
+    video.style.backgroundSize = "cover";
+    video.style.backgroundPosition = "center";
+    if (noAutoplay) video.controls = true;
 
-    function update() {
-      targets.forEach(function (el) {
-        var rect = el.getBoundingClientRect();
-        var viewportCenter = window.innerHeight / 2;
-        var elementCenter = rect.top + rect.height / 2;
-        var distance = (elementCenter - viewportCenter) / window.innerHeight;
-        var offset = distance * 26; // px of drift, kept subtle
-        el.style.transform = "scale(1.08) translateY(" + offset.toFixed(1) + "px)";
-      });
-      ticking = false;
-    }
+    var source = document.createElement("source");
+    source.src = film.cfg.src;
+    source.type = "video/mp4";
+    video.appendChild(source);
+    film.ready = true;
+  }
 
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
+  // Share of the frame on screen; frames taller than the viewport count as
+  // fully visible once they fill it.
+  function visibleRatio(rect, vh) {
+    var visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+    if (visible <= 0 || rect.height <= 0) return 0;
+    return Math.min(1, visible / Math.min(rect.height, vh));
+  }
 
-    update();
+  function play(video) {
+    if (video.paused) video.play().catch(function () { /* autoplay refused: poster stays */ });
+  }
+
+  function pause(video) {
+    if (!video.paused) video.pause();
   }
 
   // ---------- Footer year ----------

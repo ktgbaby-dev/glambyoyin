@@ -175,8 +175,7 @@ p { text-wrap: pretty; }
 /* Brand board: Glam Pink italic on light grounds, Blush italic on dark */
 .section-onyx .italic-accent,
 .hero .italic-accent,
-.final-moment .italic-accent,
-.video-landscape-caption .italic-accent { color: var(--blush); }
+.final-moment .italic-accent { color: var(--blush); }
 
 .container {
   width: 100%;
@@ -300,7 +299,7 @@ p { text-wrap: pretty; }
    below (all current .reveal-mask usages are also .media-frame). */
 .reveal-mask { overflow: hidden; }
 
-.reveal-mask > img, .reveal-mask > video, .reveal-mask > .ph-svg {
+.reveal-mask > img, .reveal-mask > video {
   clip-path: inset(0 0 100% 0);
   will-change: clip-path;
 }
@@ -325,8 +324,7 @@ p { text-wrap: pretty; }
 .reveal-scale.is-visible { opacity: 1; transform: scale(1); }
 
 .reveal-mask.is-visible > img,
-.reveal-mask.is-visible > video,
-.reveal-mask.is-visible > .ph-svg {
+.reveal-mask.is-visible > video {
   clip-path: inset(0 0 0% 0);
 }
 
@@ -336,7 +334,7 @@ p { text-wrap: pretty; }
     opacity: 1 !important;
     transform: none !important;
   }
-  .reveal-mask > img, .reveal-mask > video, .reveal-mask > .ph-svg {
+  .reveal-mask > img, .reveal-mask > video {
     clip-path: inset(0 0 0% 0) !important;
   }
   html { scroll-behavior: auto; }
@@ -443,12 +441,6 @@ p { text-wrap: pretty; }
   z-index: 0;
 }
 
-.hero-media video, .hero-media .poster-fallback {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .hero-media::after {
   content: "";
   position: absolute;
@@ -523,7 +515,7 @@ p { text-wrap: pretty; }
   .hero-scroll-cue .line { animation: none; height: 24px; }
 }
 
-/* ---------- Media frames (image / video placeholders) ---------- */
+/* ---------- Media frames (photos / films) ---------- */
 
 .media-frame {
   position: relative;
@@ -532,7 +524,7 @@ p { text-wrap: pretty; }
   border-radius: 2px;
 }
 
-.media-frame img, .media-frame video, .media-frame .ph-svg {
+.media-frame img, .media-frame video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -590,34 +582,7 @@ p { text-wrap: pretty; }
 .experience-row:nth-child(even) .copy-col { margin-left: auto; }
 .experience-row p { font-size: 1.02rem; }
 
-/* ---------- Portfolio / Lookbook ---------- */
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 34px 26px;
-  margin-top: 12px;
-}
-
-.portfolio-item figcaption {
-  margin-top: 14px;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--blush);
-}
-
-/* ---------- Video moments ---------- */
-
-.video-portrait-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.video-portrait {
-  width: min(420px, 100%);
-}
+/* ---------- In Motion (featured film) ---------- */
 
 .video-copy {
   text-align: center;
@@ -625,48 +590,117 @@ p { text-wrap: pretty; }
   margin: 0 auto 48px;
 }
 
-.video-landscape-section { padding: 0; }
-
-.video-landscape-frame {
-  width: 100%;
-  height: min(78vh, 720px);
-  overflow: hidden;
-  position: relative;
-}
-
-.video-landscape-frame video,
-.video-landscape-frame .ph-svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.video-landscape-caption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 40px 28px;
-  background: linear-gradient(0deg, rgba(14,11,13,0.75), transparent);
-  color: var(--porcelain);
-  text-align: center;
-}
-
-.video-landscape-caption p { font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem); }
-
-/* ---------- Split feature (Makeup / Lashes) ---------- */
-
-.split-feature {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 64px;
+.video-feature {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  margin: 10px 0 0;
 }
 
-.split-feature.reverse .split-media { order: 2; }
-.split-feature.reverse .split-copy { order: 1; }
+.video-portrait { width: min(420px, 100%); }
 
-.split-copy .eyebrow { margin-bottom: 16px; }
-.split-copy h2 { margin-bottom: 20px; }
-.split-copy p { max-width: 440px; }
+.video-caption {
+  margin-top: 30px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+}
+
+/* ---------- Portfolio: index of the two collections ---------- */
+
+.collection-index ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 48px;
+}
+
+.collection-link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 30px 0 28px;
+  border-top: 1px solid var(--line-on-dark);
+  border-bottom: 1px solid var(--line-on-dark);
+  transition: border-color 0.3s var(--ease-editorial);
+}
+
+.collection-link .num {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: var(--track);
+  color: var(--blush);
+  margin-bottom: 12px;
+}
+
+.collection-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.8rem + 2.6vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--porcelain);
+  transition: color 0.3s var(--ease-editorial);
+}
+
+.collection-arrow {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+  fill: none;
+  stroke: var(--blush);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.35s var(--ease-editorial);
+}
+
+.collection-link:hover,
+.collection-link:focus-visible { border-bottom-color: var(--glam-pink); }
+
+.collection-link:hover .collection-name,
+.collection-link:focus-visible .collection-name { color: var(--blush); }
+
+.collection-link:hover .collection-arrow,
+.collection-link:focus-visible .collection-arrow { transform: translateY(6px); }
+
+/* ---------- Collections (Makeup / Lashes): featured film + supporting pair ---------- */
+
+.collection {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "feature copy"
+    "feature supporting";
+  column-gap: 72px;
+  row-gap: 40px;
+}
+
+.collection.reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  grid-template-areas:
+    "copy feature"
+    "supporting feature";
+}
+
+.collection-copy { grid-area: copy; align-self: start; }
+.collection-copy .eyebrow { margin-bottom: 16px; }
+.collection-copy h2 { margin-bottom: 20px; }
+.collection-copy p { max-width: 440px; }
+
+.collection-feature { grid-area: feature; align-self: start; }
+
+.collection-supporting {
+  grid-area: supporting;
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 520px;
+}
 
 /* ---------- About ---------- */
 
@@ -704,25 +738,32 @@ p { text-wrap: pretty; }
 /* Beats the generic petal-section paragraph colour so the statement stays Onyx */
 .section-petal.quote-section blockquote p { color: var(--onyx); }
 
-/* ---------- Final portfolio moment ---------- */
+/* ---------- Final moment: brand sign-off (Wingline on Onyx) ---------- */
 
 .final-moment {
   position: relative;
-  min-height: 92vh;
+  min-height: 64vh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 0;
+  background-color: var(--onyx);
 }
 
-.final-moment .media-frame { position: absolute; inset: 0; border-radius: 0; }
+/* The supplied Onyx-Pink tile already carries the brand's 35% mark opacity. */
+.final-moment-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/pattern/Wingline_Tile_Onyx-Pink.svg");
+  background-size: 120px 120px;
+}
 
+/* Brand rule: the mark sits on a clear panel, never on the busiest area. */
 .final-moment::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(14,11,13,0.82) 0%, rgba(14,11,13,0.15) 45%, rgba(14,11,13,0.35) 100%);
+  background: radial-gradient(ellipse 46% 44% at 50% 50%, var(--onyx) 0%, rgba(14, 11, 13, 0.92) 42%, rgba(14, 11, 13, 0) 100%);
 }
 
 .final-moment-content {
@@ -730,7 +771,7 @@ p { text-wrap: pretty; }
   z-index: 1;
   text-align: center;
   color: var(--porcelain);
-  padding: 0 24px 72px;
+  padding: 96px 24px;
 }
 
 .final-moment-content img { width: 46px; height: 46px; margin: 0 auto 18px; }
@@ -908,14 +949,26 @@ p { text-wrap: pretty; }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 980px) {
-  .split-feature, .about-grid { grid-template-columns: 1fr; gap: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
-  .split-feature.reverse .split-media, .split-feature.reverse .split-copy { order: initial; }
-  .split-copy p, .about-copy p { max-width: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .about-copy p { max-width: none; }
   .about-portrait { max-width: none; }
+
+  /* Collections read top to bottom on tablets and phones: words, featured film, pair. */
+  .collection,
+  .collection.reverse {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "copy" "feature" "supporting";
+    row-gap: 32px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .collection-copy p { max-width: none; }
+  .collection-supporting { max-width: none; align-self: stretch; }
+
   .experience-row { grid-template-columns: 1fr; gap: 16px; text-align: left; }
   .experience-row:nth-child(even) .word-col,
   .experience-row:nth-child(even) .copy-col { order: initial; text-align: left; margin-left: 0; }
-  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
   .section { padding: 86px 0; }
 }
 
@@ -969,14 +1022,17 @@ p { text-wrap: pretty; }
   .nav-logo { height: 28px; }
   .section { padding: 68px 0; }
   .section-header { margin-bottom: 40px; }
-  .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 16px; }
+  .collection-index ul { grid-template-columns: minmax(0, 1fr); }
+  .collection-index li + li .collection-link { border-top: none; }
+  .collection-link { padding: 24px 0 22px; }
+  .collection-supporting { gap: 14px; }
   .experience-row { padding: 34px 0; }
   .cta-buttons { flex-direction: column; width: 100%; }
   .cta-buttons .btn { width: 100%; }
   .btn { min-height: 54px; }
   .contact-lines { gap: 30px; }
-  .video-landscape-frame { height: 58vh; }
-  .final-moment { min-height: 78vh; }
+  .final-moment { min-height: 52vh; }
+  .final-moment-content { padding: 72px 24px; }
   .footer-links { flex-wrap: wrap; row-gap: 10px; }
 
   .account-details { padding: 26px 22px; }

@@ -58,9 +58,7 @@
 
   <!-- 01 — HERO -->
   <section class="hero" id="top">
-    <div class="hero-media">
-      <video class="js-video" data-video="hero" muted loop playsinline preload="none" aria-hidden="true"></video>
-    </div>
+    <div class="hero-media" aria-hidden="true"></div>
 
     <h1 class="visually-hidden">GLAMBYOYIN — Makeup, Lashes &amp; Beauty Artist</h1>
 
@@ -130,62 +128,7 @@
     </div>
   </section>
 
-  <!-- 04 — PORTFOLIO / LOOKBOOK -->
-  <section class="section section-onyx" id="portfolio">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow reveal">Portfolio</span>
-        <h2 class="reveal">A look at the work</h2>
-      </div>
-
-      <!--
-        LOOKBOOK — 9 pieces, 4:5 portrait, images in images/portfolio/portfolio-01.svg … portfolio-09.svg.
-        To swap a placeholder for a real photo: drop your photo into images/portfolio/ and update the
-        src below (keep the same file name, e.g. portfolio-01.jpg, or change the extension in the src).
-        Category labels in the captions are editable.
-      -->
-      <div class="portfolio-grid">
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-01.svg" alt="Full-face glam makeup look — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Full Face Glam</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-02.svg" alt="Lash detail close-up — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Lash Detail</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-03.svg" alt="Bridal makeup look — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Bridal Look</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-04.svg" alt="Editorial beauty look — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Editorial Beauty</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-05.svg" alt="Soft glam makeup look — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Soft Glam</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-06.svg" alt="Before and after transformation — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Before &amp; After</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-07.svg" alt="Client portrait — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Client Portrait</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-08.svg" alt="Evening glam makeup look — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Evening Glam</figcaption>
-        </figure>
-        <figure class="portfolio-item media-frame ratio-4-5 hoverable reveal-scale">
-          <img src="images/portfolio/portfolio-09.svg" alt="Natural enhancement makeup look — placeholder, replace with portfolio photograph" loading="lazy" width="800" height="1000">
-          <figcaption>Natural Enhancement</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 — VIDEO EXPERIENCE -->
+  <!-- 04 — IN MOTION (featured film) -->
   <section class="section section-porcelain" id="film">
     <div class="container">
       <div class="video-copy">
@@ -193,50 +136,91 @@
         <h2 class="reveal">The experience, in motion</h2>
       </div>
 
-      <div class="video-portrait-wrap">
+      <figure class="video-feature">
         <div class="video-portrait media-frame ratio-9-16 reveal-mask">
-          <video class="js-video" data-video="look-01" muted loop playsinline preload="none"></video>
+          <video class="js-video" data-video="makeup-01" muted loop playsinline preload="none" disablepictureinpicture></video>
         </div>
-      </div>
+        <figcaption class="video-caption reveal"><span class="italic-accent">Every look, made to move with you.</span></figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="section video-landscape-section" id="film-2">
-    <div class="video-landscape-frame reveal-scale">
-      <video class="js-video" data-video="look-02" muted loop playsinline preload="none" data-parallax></video>
-      <div class="video-landscape-caption">
-        <p class="italic-accent">Every look, made to move with you.</p>
+  <!-- 05 — PORTFOLIO (opens the two collections below) -->
+  <section class="section section-onyx portfolio-intro" id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow reveal">Portfolio</span>
+        <h2 class="reveal">A look at the work</h2>
       </div>
+
+      <nav class="collection-index reveal" aria-label="Portfolio collections">
+        <ul>
+          <li>
+            <a href="#makeup" class="collection-link">
+              <span>
+                <span class="num" aria-hidden="true">01</span>
+                <span class="collection-name">Makeup</span>
+              </span>
+              <svg class="collection-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m0 0-6-6m6 6 6-6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#lashes" class="collection-link">
+              <span>
+                <span class="num" aria-hidden="true">02</span>
+                <span class="collection-name">Lashes</span>
+              </span>
+              <svg class="collection-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m0 0-6-6m6 6 6-6"/></svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </section>
 
-  <!-- 06 — MAKEUP -->
+  <!-- 06 — MAKEUP COLLECTION -->
   <section class="section section-porcelain" id="makeup">
     <div class="container">
-      <div class="split-feature">
-        <div class="split-media media-frame ratio-4-5 hoverable reveal-mask">
-          <img src="images/makeup/makeup-01.svg" alt="Editorial makeup application — placeholder, replace with real photography" loading="lazy" width="800" height="1000">
-        </div>
-        <div class="split-copy reveal">
-          <span class="eyebrow">Makeup</span>
+      <div class="collection">
+        <div class="collection-copy reveal">
+          <span class="eyebrow">01 &middot; Makeup</span>
           <h2>The Art of Enhancement</h2>
           <p>Every look starts with what's already there. The work is enhancement, not transformation — sharpening your features while keeping every look unmistakably you.</p>
         </div>
+        <div class="collection-feature media-frame ratio-9-16 hoverable reveal-mask">
+          <video class="js-video" data-video="makeup-02" muted loop playsinline preload="none" disablepictureinpicture></video>
+        </div>
+        <div class="collection-supporting">
+          <div class="media-frame ratio-9-16 hoverable reveal-scale">
+            <video class="js-video" data-video="makeup-03" muted loop playsinline preload="none" disablepictureinpicture></video>
+          </div>
+          <div class="media-frame ratio-9-16 hoverable reveal-scale">
+            <video class="js-video" data-video="makeup-04" muted loop playsinline preload="none" disablepictureinpicture></video>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 07 — LASHES -->
+  <!-- 07 — LASHES COLLECTION -->
   <section class="section section-petal" id="lashes">
     <div class="container">
-      <div class="split-feature reverse">
-        <div class="split-media media-frame ratio-4-5 hoverable reveal-mask">
-          <img src="images/lashes/lashes-01.svg" alt="Lash artistry detail — placeholder, replace with real photography" loading="lazy" width="800" height="1000">
-        </div>
-        <div class="split-copy reveal">
-          <span class="eyebrow">Lashes</span>
+      <div class="collection reverse">
+        <div class="collection-copy reveal">
+          <span class="eyebrow">02 &middot; Lashes</span>
           <h2>Details That Define the Look</h2>
           <p>The smallest details carry the most weight. Lash work finished with the same care as every other part of the look — precise, considered, and true to the rest of the face.</p>
+        </div>
+        <div class="collection-feature media-frame ratio-9-16 hoverable reveal-mask">
+          <video class="js-video" data-video="lashes-01" muted loop playsinline preload="none" disablepictureinpicture></video>
+        </div>
+        <div class="collection-supporting">
+          <div class="media-frame ratio-9-16 hoverable reveal-scale">
+            <video class="js-video" data-video="lashes-02" muted loop playsinline preload="none" disablepictureinpicture></video>
+          </div>
+          <div class="media-frame ratio-9-16 hoverable reveal-scale">
+            <video class="js-video" data-video="lashes-03" muted loop playsinline preload="none" disablepictureinpicture></video>
+          </div>
         </div>
       </div>
     </div>
@@ -269,11 +253,9 @@
     </div>
   </section>
 
-  <!-- 10 — FINAL PORTFOLIO MOMENT -->
+  <!-- 10 — FINAL MOMENT (brand sign-off: Wingline on Onyx) -->
   <section class="final-moment reveal-scale" id="moment">
-    <div class="media-frame">
-      <video class="js-video" data-video="look-03" muted loop playsinline preload="none"></video>
-    </div>
+    <div class="final-moment-pattern" aria-hidden="true"></div>
     <div class="final-moment-content">
       <img src="assets/logos/GLAMBYOYIN_Monogram_White.svg" alt="" width="100" height="100">
       <p>Beauty, <span class="italic-accent">taken seriously.</span></p>
