@@ -6,8 +6,8 @@
 
 @font-face {
   font-family: "Bodoni Moda";
-  src: url("../assets/fonts/BodoniModa-Variable.ttf") format("truetype-variations"),
-       url("../assets/fonts/BodoniModa-Variable.ttf") format("truetype");
+  src: url("../assets/fonts/BodoniModa-Variable.woff2") format("woff2-variations"),
+       url("../assets/fonts/BodoniModa-Variable.woff2") format("woff2");
   font-weight: 400 900;
   font-style: normal;
   font-display: swap;
@@ -15,8 +15,8 @@
 
 @font-face {
   font-family: "Bodoni Moda";
-  src: url("../assets/fonts/BodoniModa-Italic-Variable.ttf") format("truetype-variations"),
-       url("../assets/fonts/BodoniModa-Italic-Variable.ttf") format("truetype");
+  src: url("../assets/fonts/BodoniModa-Italic-Variable.woff2") format("woff2-variations"),
+       url("../assets/fonts/BodoniModa-Italic-Variable.woff2") format("woff2");
   font-weight: 400 900;
   font-style: italic;
   font-display: swap;
@@ -24,8 +24,8 @@
 
 @font-face {
   font-family: "Jost";
-  src: url("../assets/fonts/Jost-Variable.ttf") format("truetype-variations"),
-       url("../assets/fonts/Jost-Variable.ttf") format("truetype");
+  src: url("../assets/fonts/Jost-Variable.woff2") format("woff2-variations"),
+       url("../assets/fonts/Jost-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -33,8 +33,8 @@
 
 @font-face {
   font-family: "Jost";
-  src: url("../assets/fonts/Jost-Italic-Variable.ttf") format("truetype-variations"),
-       url("../assets/fonts/Jost-Italic-Variable.ttf") format("truetype");
+  src: url("../assets/fonts/Jost-Italic-Variable.woff2") format("woff2-variations"),
+       url("../assets/fonts/Jost-Italic-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -210,7 +210,7 @@ p { text-wrap: pretty; }
 
 .btn-primary {
   background-color: var(--glam-pink);
-  color: var(--porcelain);
+  color: var(--white);
   border-color: var(--glam-pink);
 }
 
@@ -386,7 +386,7 @@ p { text-wrap: pretty; }
 
 .nav-cta {
   background-color: var(--glam-pink);
-  color: var(--porcelain) !important;
+  color: var(--white) !important;
   padding: 10px 22px;
   border-radius: 2px;
   border-bottom: none !important;
@@ -606,6 +606,9 @@ p { text-wrap: pretty; }
   font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
 }
 
+/* a touch deeper than Glam Pink so this caption passes 4.5:1 on Porcelain */
+.video-caption .italic-accent { color: #d0116c; }
+
 /* ---------- Portfolio: index of the two collections ---------- */
 
 .collection-index ul {
@@ -718,7 +721,7 @@ p { text-wrap: pretty; }
   display: block;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  color: var(--berry);
+  color: var(--blush);
   margin-bottom: 22px;
   letter-spacing: 0.05em;
 }
