@@ -905,7 +905,8 @@ p { text-wrap: pretty; }
   border-bottom: 1px solid var(--line-on-dark);
 }
 
-.footer-logo { height: 32px; width: auto; margin-bottom: 14px; }
+.footer-brand { display: flex; align-items: center; min-height: 44px; margin-bottom: 4px; }
+.footer-logo { height: 32px; width: auto; margin-bottom: 0; }
 .footer-tagline { font-family: var(--font-display); font-style: italic; color: var(--blush); font-size: 1rem; }
 
 .footer-contact { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
